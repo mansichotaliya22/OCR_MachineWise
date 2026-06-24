@@ -1,0 +1,45 @@
+# ============================================================
+# Industrial OCR Monitoring System — Requirements
+# ============================================================
+
+# ----------------------------
+# Computer Vision & Detection
+# ----------------------------
+ultralytics==8.2.18               # YOLOv8
+opencv-python-headless==4.9.0.80  # OpenCV (headless for Docker/server)
+Pillow==10.3.0                    # Image utilities
+
+# ----------------------------
+# OCR
+# ----------------------------
+paddlepaddle==2.6.1               # PaddlePaddle CPU backend
+paddleocr==2.7.3                  # PaddleOCR
+
+# ----------------------------
+# Backend Framework
+# ----------------------------
+fastapi==0.111.0                  # FastAPI
+uvicorn[standard]==0.29.0         # ASGI server
+python-multipart==0.0.9           # Multipart form data (file uploads)
+pydantic==2.7.1                   # Data validation & schemas
+pydantic-settings==2.2.1          # Settings management
+
+# ----------------------------
+# MQTT
+# ----------------------------
+paho-mqtt==2.0.0                  # MQTT client (EMQX compatible)
+
+# ----------------------------
+# Database
+# ----------------------------
+pymongo==4.7.2                    # MongoDB sync driver
+motor==3.4.0                      # Async MongoDB driver (FastAPI)
+
+# ----------------------------
+# Utilities
+# ----------------------------
+python-dotenv==1.0.1              # .env file support
+numpy==1.26.4                     # Numerical operations
+aiofiles==23.2.1                  # Async file I/O
+httpx==0.27.0                     # Async HTTP client
+loguru==0.7.2                     # Structured logging

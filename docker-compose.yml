@@ -1,0 +1,118 @@
+# ============================================================
+# Industrial OCR Monitoring System — Docker Compose
+# ============================================================
+# Services:
+#   emqx    — MQTT broker (EMQX Community Edition)
+#   mongo   — MongoDB document store
+#   ocr-app — FastAPI OCR application
+#
+# All services communicate on the internal `ocr-network`.
+# Only the ports listed under `ports:` are exposed to the host.
+
+version: "3.9"
+
+services:
+
+  # ----------------------------------------------------------
+  # EMQX MQTT Broker
+  # ----------------------------------------------------------
+  emqx:
+    image: emqx/emqx:5.6.0
+    container_name: ocr_emqx
+    restart: unless-stopped
+    ports:
+      - "1883:1883"     # MQTT  (host:container)
+      - "8083:8083"     # MQTT over WebSocket
+      - "18083:18083"   # EMQX Dashboard  (admin/public)
+    environment:
+      EMQX_NAME: ocr_broker
+      EMQX_HOST: "0.0.0.0"
+      # Allow anonymous connections for development
+      # In production: set EMQX_ALLOW_ANONYMOUS=false and configure ACL
+      EMQX_ALLOW_ANONYMOUS: "true"
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+    healthcheck:
+      test: ["CMD", "emqx", "ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ocr-network
+
+  # ----------------------------------------------------------
+  # MongoDB
+  # ----------------------------------------------------------
+  mongo:
+    image: mongo:7.0
+    container_name: ocr_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"   # Expose for local inspection (Compass etc.)
+    environment:
+      # Set credentials for production; leave empty for dev
+      MONGO_INITDB_DATABASE: ocr_db
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/ocr_db --quiet
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ocr-network
+
+  # ----------------------------------------------------------
+  # OCR Application (FastAPI)
+  # ----------------------------------------------------------
+  ocr-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ocr_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      # Override config.py defaults with Docker service hostnames
+      MQTT_BROKER_HOST: emqx
+      MQTT_BROKER_PORT: 1883
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB_NAME: ocr_db
+      MONGO_COLLECTION: ocr_results
+      LOG_LEVEL: INFO
+      DEBUG: "false"
+    volumes:
+      # Persist uploaded images and results to host filesystem
+      - ./images:/app/images
+      - ./results:/app/results
+      - ./models:/app/models
+      # Mount the pre-trained model (populated after running train.py)
+      - ./detector:/app/detector
+      # Mount master_dataset for training (optional — not needed at runtime)
+      - ./master_dataset:/app/master_dataset
+    depends_on:
+      emqx:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    networks:
+      - ocr-network
+
+# ── Volumes ────────────────────────────────────────────────────
+volumes:
+  emqx_data:
+  emqx_log:
+  mongo_data:
+
+# ── Network ────────────────────────────────────────────────────
+networks:
+  ocr-network:
+    driver: bridge

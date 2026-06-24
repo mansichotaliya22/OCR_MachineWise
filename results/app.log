@@ -1,0 +1,32 @@
+2026-06-24 14:58:01 | INFO | __main__:94 — ============================================================
+2026-06-24 14:58:01 | INFO | __main__:95 —   Industrial OCR Monitoring System  v1.0.0
+2026-06-24 14:58:01 | INFO | __main__:96 —   YOLOv8 Training
+2026-06-24 14:58:01 | INFO | __main__:97 — ============================================================
+2026-06-24 14:58:01 | INFO | __main__:98 — Dataset  : D:\Internship\OCR_MetalEngravings\OCR_MQTT_Phase1\OCR_MQTT\master_dataset\data.yaml
+2026-06-24 14:58:01 | INFO | __main__:99 — Base model: yolov8n.pt
+2026-06-24 14:58:01 | INFO | __main__:100 — Epochs   : 100
+2026-06-24 14:58:01 | INFO | __main__:101 — Img size : 640
+2026-06-24 14:58:01 | INFO | __main__:102 — Batch    : 16
+2026-06-24 14:58:01 | INFO | __main__:103 — Workers  : 4
+2026-06-24 14:58:01 | INFO | __main__:104 — Project  : D:\Internship\OCR_MetalEngravings\OCR_MQTT_Phase1\OCR_MQTT\models
+2026-06-24 14:58:01 | INFO | __main__:105 — Run name : ocr_detector
+2026-06-24 14:58:01 | INFO | __main__:106 — ------------------------------------------------------------
+2026-06-24 14:58:01 | INFO | __main__:109 — Loading base model: yolov8n.pt
+2026-06-24 15:44:58 | INFO | __main__:94 — ============================================================
+2026-06-24 15:44:58 | INFO | __main__:95 —   Industrial OCR Monitoring System  v1.0.0
+2026-06-24 15:44:58 | INFO | __main__:96 —   YOLOv8 Training
+2026-06-24 15:44:58 | INFO | __main__:97 — ============================================================
+2026-06-24 15:44:58 | INFO | __main__:98 — Dataset  : D:\Internship\OCR_MetalEngravings\OCR_MQTT_Phase1\OCR_MQTT\master_dataset\data.yaml
+2026-06-24 15:44:58 | INFO | __main__:99 — Base model: yolov8n.pt
+2026-06-24 15:44:58 | INFO | __main__:100 — Epochs   : 100
+2026-06-24 15:44:58 | INFO | __main__:101 — Img size : 640
+2026-06-24 15:44:58 | INFO | __main__:102 — Batch    : 16
+2026-06-24 15:44:58 | INFO | __main__:103 — Workers  : 4
+2026-06-24 15:44:58 | INFO | __main__:104 — Project  : D:\Internship\OCR_MetalEngravings\OCR_MQTT_Phase1\OCR_MQTT\models
+2026-06-24 15:44:58 | INFO | __main__:105 — Run name : ocr_detector
+2026-06-24 15:44:58 | INFO | __main__:106 — ------------------------------------------------------------
+2026-06-24 15:44:58 | INFO | __main__:109 — Loading base model: yolov8n.pt
+2026-06-24 16:20:05 | WARNING | __main__:137 — Training interrupted by user (KeyboardInterrupt).
+2026-06-24 16:20:05 | INFO | __main__:138 — Ultralytics saves a partial checkpoint — attempting copy.
+2026-06-24 16:20:05 | SUCCESS | __main__:161 — Best model saved → D:\Internship\OCR_MetalEngravings\OCR_MQTT_Phase1\OCR_MQTT\detector\best.pt
+2026-06-24 16:20:05 | INFO | __main__:162 — ============================================================

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Industrial OCR Monitoring System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAV ===== -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">⬡</span>
+      <span class="nav-title">Industrial OCR Monitor</span>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Idle</span>
+    </div>
+  </header>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <main class="layout">
+
+    <!-- ─── LEFT PANEL (75%) — images ─── -->
+    <section class="panel-left">
+
+      <div class="card image-card">
+        <div class="card-header">
+          <span class="card-label">📷 Original Image</span>
+          <span class="tag" id="uploadedFilename">No file loaded</span>
+        </div>
+        <div class="image-box" id="uploadedImageBox">
+          <div class="placeholder">
+            <span class="placeholder-icon">🖼</span>
+            <p>Upload an image to begin</p>
+          </div>
+          <img id="uploadedImage" class="hidden" alt="Uploaded image" />
+        </div>
+      </div>
+
+      <div class="card image-card">
+        <div class="card-header">
+          <span class="card-label">🔍 Detection Result</span>
+          <span class="badge" id="detectionBadge">—</span>
+        </div>
+        <div class="image-box" id="detectionImageBox">
+          <div class="placeholder" id="detPlaceholder">
+            <span class="placeholder-icon">🧠</span>
+            <p>Detection output will appear here</p>
+          </div>
+          <img id="detectionImage" class="hidden" alt="Detection result" />
+        </div>
+      </div>
+
+      <!-- Upload button -->
+      <div class="upload-row">
+        <label class="btn-upload" for="fileInput">
+          <span>⬆ Upload Image</span>
+          <input type="file" id="fileInput" accept="image/*" hidden />
+        </label>
+        <button class="btn-process" id="processBtn" disabled>
+          ▶ Run OCR
+        </button>
+        <span class="processing-spinner hidden" id="spinner">⟳ Processing…</span>
+      </div>
+
+    </section>
+
+    <!-- ─── RIGHT PANEL (25%) — results ─── -->
+    <aside class="panel-right">
+
+      <div class="card result-card">
+        <div class="card-header">
+          <span class="card-label">📊 OCR Result</span>
+        </div>
+
+        <div class="result-field">
+          <span class="field-label">Detected Text</span>
+          <div class="field-value text-value" id="detectedText">—</div>
+        </div>
+
+        <div class="result-field">
+          <span class="field-label">Text Length</span>
+          <div class="field-value" id="textLength">—</div>
+        </div>
+
+        <div class="result-field">
+          <span class="field-label">Confidence</span>
+          <div class="confidence-bar-wrap">
+            <div class="confidence-bar" id="confidenceBar"></div>
+          </div>
+          <div class="field-value" id="confidenceValue">—</div>
+        </div>
+
+        <div class="result-field">
+          <span class="field-label">Timestamp</span>
+          <div class="field-value small-text" id="resultTimestamp">—</div>
+        </div>
+
+        <div class="result-field">
+          <span class="field-label">Pipeline Status</span>
+          <div class="field-value status-badge" id="pipelineStatus">—</div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="card history-card">
+        <div class="card-header">
+          <span class="card-label">📋 Recent History</span>
+          <button class="btn-small" id="refreshHistory">↻</button>
+          <button class="btn-small danger" id="clearHistory">✕ Clear</button>
+        </div>
+        <ul class="history-list" id="historyList">
+          <li class="history-empty">No history yet</li>
+        </ul>
+      </div>
+
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
