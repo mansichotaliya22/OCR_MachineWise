@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Industrial OCR Monitoring System
 
 > **Stack:** YOLOv8 · PaddleOCR · OpenCV · FastAPI · MQTT (EMQX) · MongoDB · Docker
@@ -162,3 +163,6 @@ Each detected ROI passes through these OpenCV stages before PaddleOCR:
 ## License
 
 MIT
+=======
+# OCR_MachineWise
+>>>>>>> 23e1c3bf44589b2616d5c014cf8030144dfea639
